@@ -34,6 +34,11 @@ async function getProducts(req, res, next) {
   res.send(data);
 }
 
+const deleteCache = (req, res) => {
+  client.del("products");
+  res.send("success");
+};
+
 // Cache middleware
 async function cache(req, res, next) {
   console.log("in cache");
@@ -47,5 +52,7 @@ async function cache(req, res, next) {
 }
 
 app.get("/api/products", cache, getProducts);
+
+app.get("/api/remove", deleteCache);
 
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
