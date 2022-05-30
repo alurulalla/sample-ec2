@@ -9,7 +9,7 @@ app.use(express.json());
 dotenv.config();
 
 const PORT = process.env.PORT || 8080;
-const REDIS_PORT = process.env.PORT || 6379;
+const REDIS_PORT = process.env.REDIS_PORT || 6379;
 
 const client = redis.createClient(REDIS_PORT);
 
