@@ -27,8 +27,10 @@ const delay = (time) => new Promise((res) => setTimeout(res, time));
 
 async function getProducts(req, res, next) {
   // Set data to Redis
+  console.log("in getproducts");
   client.set("products", JSON.stringify(products));
-  await delay(10000);
+  console.log(products);
+  await delay(5000);
   res.send(data);
 }
 
