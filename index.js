@@ -31,7 +31,7 @@ async function getProducts(req, res, next) {
   client.set("products", JSON.stringify(products));
   console.log(products);
   await delay(5000);
-  res.send(data);
+  res.send(products);
 }
 
 const deleteCache = (req, res) => {
