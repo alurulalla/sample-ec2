@@ -36,8 +36,9 @@ async function getProducts(req, res, next) {
 
 // Cache middleware
 async function cache(req, res, next) {
+  console.log("in cache");
   const data = await client.get("products");
-
+  console.log(data);
   if (data !== null) {
     res.send(JSON.parse(data));
   } else {
