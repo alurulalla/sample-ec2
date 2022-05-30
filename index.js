@@ -23,9 +23,26 @@ client.on("error", function () {
   console.log("Error in Redis");
 });
 
-app.get("/api/products", (req, res) => {
-  console.log("here");
-  res.json(products);
-});
+const delay = (time) => new Promise((res) => setTimeout(res, time));
+
+async function getProducts(req, res, next) {
+  // Set data to Redis
+  client.set("products", JSON.stringify(products));
+  await delay(10000);
+  res.send(data);
+}
+
+// Cache middleware
+async function cache(req, res, next) {
+  const data = await client.get("products");
+
+  if (data !== null) {
+    res.send(JSON.parse(data));
+  } else {
+    next();
+  }
+}
+
+app.get("/api/products", cache, getProducts);
 
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
